@@ -1,0 +1,9 @@
+Najsilniejsze korelacje dla Person (abs > 0.1):
+
+[Persona_ACTIVE_TRADER]:
+Method_POST    0.276115
+Method_GET    -0.276115
+
+[Persona_SCRAPER_BOT]:
+Method_POST   -0.338769
+Method_GET     0.338769

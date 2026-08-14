@@ -1,0 +1,36 @@
+Najsilniejsze korelacje dla Person (abs > 0.1):
+
+[Persona_ACTIVE_TRADER]:
+Method_GET           -0.257923
+Method_POST           0.257923
+numberOfBuyOffers     0.186162
+numberOfSellOffers    0.185631
+apiTime              -0.172257
+databaseTime         -0.142185
+applicationTime      -0.142179
+
+[Persona_CAUTIOUS_USER]:
+cpuUsage_trade       -0.261497
+cpuUsage_market      -0.256828
+cpuUsage_traffic     -0.254009
+databaseTime         -0.111567
+applicationTime      -0.111564
+numberOfBuyOffers     0.105423
+numberOfSellOffers    0.104447
+apiTime              -0.100293
+memoryUsage_trade    -0.100075
+
+[Persona_SCRAPER_BOT]:
+Method_GET             0.361790
+Method_POST           -0.361790
+numberOfBuyOffers     -0.356250
+numberOfSellOffers    -0.354473
+apiTime                0.328929
+databaseTime           0.303523
+applicationTime        0.303513
+cpuUsage_trade         0.246288
+cpuUsage_market        0.242376
+cpuUsage_traffic       0.240877
+memoryUsage_trade      0.200663
+memoryUsage_traffic    0.196623
+memoryUsage_market     0.194657

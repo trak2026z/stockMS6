@@ -1,0 +1,20 @@
+Target: cpuUsage_traffic
+MSE: 0.26092886469711246
+R2: 0.9828158462535391
+
+Feature Importance:
+cpuUsage_market: 0.3519
+cpuUsage_trade: 0.2154
+databaseTime: 0.0775
+id_trade_log: 0.0600
+memoryUsage_market: 0.0431
+memoryUsage_traffic: 0.0420
+memoryUsage_trade: 0.0392
+numberOfSellOffers: 0.0381
+id: 0.0364
+databaseTime_trade_log: 0.0332
+apiTime: 0.0203
+numberOfBuyOffers: 0.0196
+applicationTime_trade_log: 0.0134
+applicationTime: 0.0077
+userId: 0.0021

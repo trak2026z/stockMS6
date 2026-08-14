@@ -1,0 +1,33 @@
+--- 1. Wczytywanie danych ---
+   Losowanie 2000 wierszy do wizualizacji...
+--- 2. Wczytywanie modelu OCC i encoderów ---
+   Aplikowanie encoderów...
+--- 3. Obliczanie PCA i generowanie raportu ---
+
+=== WYNIKI DETEKCJI (Isolation Forest) ===
+Dokładność (Accuracy): 54.75%
+  TP (Bot poprawnie wykryty): 160
+  FP (User błędnie zablokowany): 63
+  TN (User poprawnie wpuszczony): 935
+  FN (Bot niewykryty): 842
+------------------------------
+ANALIZA PCA (Odwzorowanie 2D):
+  Wyjaśniona wariancja PC1 (Oś X): 39.84%
+  Wyjaśniona wariancja PC2 (Oś Y): 28.72%
+  RAZEM: 68.57% informacji z 9 cech.
+
+TABELA WPŁYWU CECH (Loadings):
+                         PC1       PC2
+applicationTime     0.449600 -0.303263
+databaseTime        0.449597 -0.303268
+apiTime             0.441395 -0.315503
+memoryUsage_market  0.410213  0.291484
+memoryUsage_trade   0.410187  0.291532
+cpuUsage_trade      0.182018  0.509332
+cpuUsage_market     0.172805  0.502976
+apiMethod           0.030698 -0.143492
+endpointUrl        -0.020736  0.116493
+
+--- 4. Generowanie wykresu ---
+[SUKCES] Wykres zapisano w: ../H1U200-45-45-10/visualizations\OCC_Boundary_Full.png
+[SUKCES] Pełny log konsoli zapisano w: ../H1U200-45-45-10/visualizations\OCC_Boundary_Full_ConsoleLog.txt

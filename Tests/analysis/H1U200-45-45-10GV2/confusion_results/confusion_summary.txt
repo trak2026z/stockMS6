@@ -1,0 +1,6 @@
+=== RAPORT OCHRONY ===
+TP: 412688 | FP: 476663 | FN: 34926 | TN: 178725
+Accuracy:  0.5362
+Precision: 0.4640
+Recall:    0.9220
+F1 Score:  0.6174

@@ -1,0 +1,33 @@
+--- 1. Wczytywanie danych ---
+   Losowanie 2000 wierszy do wizualizacji...
+--- 2. Wczytywanie modelu OC-SVM i encoderów ---
+   Aplikowanie encoderów...
+--- 3. Obliczanie PCA i generowanie raportu ---
+
+=== WYNIKI DETEKCJI (One-Class SVM) ===
+Dokładność (Accuracy): 94.30%
+  TP (Bot poprawnie wykryty): 275
+  FP (User błędnie zablokowany): 91
+  TN (User poprawnie wpuszczony): 1611
+  FN (Bot niewykryty): 23
+------------------------------
+ANALIZA PCA (Odwzorowanie 2D):
+  Wyjaśniona wariancja PC1 (Oś X): 32.86%
+  Wyjaśniona wariancja PC2 (Oś Y): 30.80%
+  RAZEM: 63.66% informacji z 9 cech.
+
+TABELA WPŁYWU CECH (Loadings):
+                         PC1       PC2
+applicationTime     0.455910 -0.328346
+databaseTime        0.455856 -0.328662
+apiTime             0.421018 -0.341214
+cpuUsage_trade      0.312618  0.345538
+memoryUsage_market  0.306856  0.448833
+memoryUsage_trade   0.304947  0.450165
+cpuUsage_market     0.276902  0.342947
+endpointUrl         0.138362 -0.102692
+apiMethod          -0.162429  0.126844
+
+--- 4. Generowanie wykresu ---
+[SUKCES] Wykres zapisano w: ../H1U10-50-40-10/visualizations\OCSVM_Boundary_Full.png
+[SUKCES] Pełny log konsoli zapisano w: ../H1U10-50-40-10/visualizations\OCSVM_Boundary_Full_ConsoleLog.txt

@@ -1,0 +1,20 @@
+Najsilniejsze korelacje dla Person (abs > 0.1):
+
+[Persona_ACTIVE_TRADER]:
+Method_GET           -0.553775
+Method_POST           0.553775
+numberOfBuyOffers    -0.105198
+numberOfSellOffers   -0.105076
+
+[Persona_CAUTIOUS_USER]:
+Method_POST    0.24994
+Method_GET    -0.24994
+
+[Persona_SCRAPER_BOT]:
+Method_GET             0.627245
+Method_POST           -0.627245
+numberOfBuyOffers      0.108256
+numberOfSellOffers     0.108148
+memoryUsage_trade      0.102573
+memoryUsage_market     0.101945
+memoryUsage_traffic    0.101886

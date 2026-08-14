@@ -1,0 +1,9 @@
+=== RAPORT ZABLOKOWANYCH UŻYTKOWNIKÓW ===
+
+Łączna liczba zablokowanych żądań: 889351
+ - Od Botów: 412688
+ - Od Ludzi (False Positives): 476663
+
+--- UNIKALNE BANY (Pierwsze 'BOT DETECTED') ---
+Zablokowane unikalne Boty: 20
+Zablokowani unikalni Ludzie: 180

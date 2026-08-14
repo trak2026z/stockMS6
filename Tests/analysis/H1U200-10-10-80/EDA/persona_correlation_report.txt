@@ -1,0 +1,16 @@
+Najsilniejsze korelacje dla Person (abs > 0.1):
+
+[Persona_ACTIVE_TRADER]:
+Method_POST    0.582707
+Method_GET    -0.582707
+apiTime       -0.498387
+
+[Persona_CAUTIOUS_USER]:
+apiTime       -0.333664
+Method_POST    0.315003
+Method_GET    -0.315003
+
+[Persona_SCRAPER_BOT]:
+Method_POST   -0.662432
+Method_GET     0.662432
+apiTime        0.602553

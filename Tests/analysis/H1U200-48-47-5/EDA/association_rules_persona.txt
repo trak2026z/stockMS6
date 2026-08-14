@@ -1,0 +1,22 @@
+                         antecedents          consequents  support  confidence   lift
+H_memoryUsage_traffic, ACTIVE_TRADER H_memoryUsage_market   0.0775      0.9988 6.7102
+H_memoryUsage_traffic, ACTIVE_TRADER  H_memoryUsage_trade   0.0772      0.9949 6.6811
+       H_databaseTime, ACTIVE_TRADER    H_applicationTime   0.0788      1.0000 6.6750
+         SCRAPER_BOT, H_databaseTime    H_applicationTime   0.0500      1.0000 6.6750
+ H_memoryUsage_market, ACTIVE_TRADER  H_memoryUsage_trade   0.0780      0.9724 6.5301
+            H_apiTime, ACTIVE_TRADER       H_databaseTime   0.0620      0.9272 6.1914
+            H_apiTime, ACTIVE_TRADER    H_applicationTime   0.0621      0.9272 6.1891
+     H_cpuUsage_trade, ACTIVE_TRADER    H_cpuUsage_market   0.0677      0.8368 5.6213
+   H_cpuUsage_traffic, ACTIVE_TRADER    H_cpuUsage_market   0.0662      0.8351 5.6103
+   H_cpuUsage_traffic, ACTIVE_TRADER     H_cpuUsage_trade   0.0641      0.8090 5.4092
+    H_applicationTime, ACTIVE_TRADER          Method_POST   0.0678      0.8602 2.7781
+       H_databaseTime, ACTIVE_TRADER          Method_POST   0.0678      0.8601 2.7780
+                         Method_POST        ACTIVE_TRADER   0.2643      0.8536 1.4561
+         SCRAPER_BOT, H_databaseTime           Method_GET   0.0500      1.0000 1.4485
+              H_apiTime, SCRAPER_BOT           Method_GET   0.0618      1.0000 1.4485
+      SCRAPER_BOT, H_applicationTime           Method_GET   0.0500      1.0000 1.4485
+                         SCRAPER_BOT           Method_GET   0.2887      1.0000 1.4485
+                           H_apiTime          SCRAPER_BOT   0.0618      0.4124 1.4283
+              H_apiTime, Method_POST        ACTIVE_TRADER   0.0548      0.8231 1.4040
+                      H_databaseTime          SCRAPER_BOT   0.0500      0.3340 1.1568
+                   H_applicationTime          SCRAPER_BOT   0.0500      0.3340 1.1566

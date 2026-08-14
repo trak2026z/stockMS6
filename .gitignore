@@ -1,0 +1,4 @@
+traffic/*.pkl
+traffic/*.json
+ReadyTests/
+Tests/logs/

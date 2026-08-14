@@ -1,0 +1,30 @@
+=== RAPORT ANALIZY PCA I MODELU ===
+Plik danych: ../H1U10-50-40-10/merged_data.csv
+Liczba próbek: 2000
+----------------------------------------
+WYNIKI KLASYFIKACJI:
+Dokładność (Accuracy): 99.55%
+Macierz pomyłek:
+  TP (Bot wykryty): 314
+  FP (Fałszywy alarm): 9
+  TN (Poprawny user): 1677
+  FN (Bot niewykryty): 0
+----------------------------------------
+ANALIZA PCA (Co oznaczają osie?):
+Wyjaśniona wariancja PC1: 33.39%
+Wyjaśniona wariancja PC2: 32.01%
+
+TABELA WPŁYWU CECH (Loadings):
+(Dodatnie wartości ciągną punkt w prawo/górę, ujemne w lewo/dół)
+----------------------------------------
+                         PC1       PC2
+applicationTime     0.461759 -0.310815
+databaseTime        0.461745 -0.311147
+apiTime             0.432137 -0.338979
+cpuUsage_trade      0.296721  0.353407
+memoryUsage_market  0.294819  0.449213
+memoryUsage_trade   0.294254  0.449157
+cpuUsage_market     0.263517  0.376080
+endpointUrl         0.158605 -0.100892
+apiMethod          -0.175166  0.107839
+----------------------------------------

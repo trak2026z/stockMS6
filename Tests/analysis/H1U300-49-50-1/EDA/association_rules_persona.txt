@@ -1,0 +1,15 @@
+                         antecedents           consequents  support  confidence   lift
+       H_databaseTime, ACTIVE_TRADER     H_applicationTime   0.1171      1.0000 6.6706
+ACTIVE_TRADER, H_memoryUsage_traffic  H_memoryUsage_market   0.0977      0.9855 6.5835
+  H_memoryUsage_trade, ACTIVE_TRADER  H_memoryUsage_market   0.0967      0.9769 6.5258
+  H_memoryUsage_trade, ACTIVE_TRADER H_memoryUsage_traffic   0.0961      0.9711 6.5160
+     H_cpuUsage_trade, ACTIVE_TRADER    H_cpuUsage_traffic   0.0924      0.9510 6.3545
+     H_cpuUsage_trade, ACTIVE_TRADER     H_cpuUsage_market   0.0903      0.9298 6.2230
+   ACTIVE_TRADER, H_cpuUsage_traffic     H_cpuUsage_market   0.0903      0.9293 6.2192
+            H_apiTime, ACTIVE_TRADER        H_databaseTime   0.1051      0.9298 6.2062
+            H_apiTime, ACTIVE_TRADER     H_applicationTime   0.1051      0.9299 6.2030
+    ACTIVE_TRADER, H_applicationTime           Method_POST   0.1117      0.9533 2.4790
+       H_databaseTime, ACTIVE_TRADER           Method_POST   0.1116      0.9533 2.4790
+            H_apiTime, ACTIVE_TRADER           Method_POST   0.1050      0.9292 2.4163
+                         SCRAPER_BOT            Method_GET   0.0913      1.0000 1.6249
+                         Method_POST         ACTIVE_TRADER   0.3144      0.8175 1.1494

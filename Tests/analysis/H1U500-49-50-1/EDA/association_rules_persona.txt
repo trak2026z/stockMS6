@@ -1,0 +1,27 @@
+                         antecedents           consequents  support  confidence   lift
+       H_databaseTime, ACTIVE_TRADER     H_applicationTime   0.1066      1.0000 6.6672
+H_memoryUsage_traffic, ACTIVE_TRADER  H_memoryUsage_market   0.0815      0.9818 6.5509
+  H_memoryUsage_trade, ACTIVE_TRADER  H_memoryUsage_market   0.0805      0.9767 6.5170
+  H_memoryUsage_trade, ACTIVE_TRADER H_memoryUsage_traffic   0.0802      0.9727 6.5052
+            ACTIVE_TRADER, H_apiTime        H_databaseTime   0.1000      0.9708 6.4743
+            ACTIVE_TRADER, H_apiTime     H_applicationTime   0.1000      0.9708 6.4729
+   H_cpuUsage_traffic, ACTIVE_TRADER      H_cpuUsage_trade   0.0711      0.8727 5.8767
+   H_cpuUsage_traffic, ACTIVE_TRADER     H_cpuUsage_market   0.0691      0.8477 5.7033
+     H_cpuUsage_trade, ACTIVE_TRADER     H_cpuUsage_market   0.0674      0.8171 5.4977
+   H_cpuUsage_traffic, ACTIVE_TRADER   H_memoryUsage_trade   0.0557      0.6837 4.6020
+   H_cpuUsage_traffic, ACTIVE_TRADER  H_memoryUsage_market   0.0554      0.6802 4.5384
+   H_cpuUsage_traffic, ACTIVE_TRADER H_memoryUsage_traffic   0.0552      0.6768 4.5262
+  H_memoryUsage_trade, ACTIVE_TRADER     H_cpuUsage_market   0.0544      0.6596 4.4380
+    ACTIVE_TRADER, H_cpuUsage_market  H_memoryUsage_market   0.0550      0.6628 4.4223
+    ACTIVE_TRADER, H_cpuUsage_market H_memoryUsage_traffic   0.0542      0.6532 4.3680
+  H_memoryUsage_trade, ACTIVE_TRADER      H_cpuUsage_trade   0.0533      0.6463 4.3516
+     H_cpuUsage_trade, ACTIVE_TRADER  H_memoryUsage_market   0.0522      0.6324 4.2195
+     H_cpuUsage_trade, ACTIVE_TRADER H_memoryUsage_traffic   0.0516      0.6253 4.1820
+    H_applicationTime, ACTIVE_TRADER           Method_POST   0.0998      0.9368 2.6033
+       H_databaseTime, ACTIVE_TRADER           Method_POST   0.0998      0.9368 2.6033
+            ACTIVE_TRADER, H_apiTime           Method_POST   0.0955      0.9272 2.5768
+                         SCRAPER_BOT            Method_GET   0.1468      1.0000 1.5621
+                         Method_POST         ACTIVE_TRADER   0.2743      0.7622 1.2402
+                      H_databaseTime         ACTIVE_TRADER   0.1066      0.7106 1.1562
+                   H_applicationTime         ACTIVE_TRADER   0.1066      0.7106 1.1562
+                           H_apiTime         ACTIVE_TRADER   0.1030      0.6876 1.1188

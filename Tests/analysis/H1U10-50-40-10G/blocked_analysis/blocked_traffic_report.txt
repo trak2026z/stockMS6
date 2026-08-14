@@ -1,0 +1,6 @@
+=== RAPORT RUCHU (BLOCKED REQUESTS) ===
+
+Wszystkie zablokowane żądania: 74126
+---------------------------------------
+Od Botów:  24448
+Od Ludzi:  49678

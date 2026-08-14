@@ -1,0 +1,7 @@
+Łączna liczba zablokowanych żądań: 1092659
+ - Od SCRAPER_BOT: 438976
+ - Od ACTIVE_USER i CAUTIOUS_USER (FP): 653683
+
+--- UNIKALNE BANY (Pierwsze 'BOT DETECTED') ---
+Zablokowane unikalne SCRAPER_BOT: 20
+Zablokowani unikalni ACTIVE_USER i CAUTIOUS_USER: 180

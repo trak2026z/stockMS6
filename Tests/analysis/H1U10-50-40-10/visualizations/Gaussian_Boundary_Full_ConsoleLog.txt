@@ -1,0 +1,34 @@
+--- 1. Wczytywanie danych ---
+   Losowanie 2000 wierszy do wizualizacji...
+--- 2. Wczytywanie modelu Gaussian i encoderów ---
+   Ładowanie z: ./weights/bot_gaussian_modelH1U10-50-40-10.pkl
+   Aplikowanie encoderów...
+--- 3. Obliczanie PCA i generowanie raportu ---
+
+=== WYNIKI DETEKCJI (Elliptic Envelope / Robust Covariance) ===
+Dokładność (Accuracy): 96.95%
+  TP (Bot poprawnie wykryty): 237
+  FP (User błędnie zablokowany): 16 (Fałszywy Alarm)
+  TN (User poprawnie wpuszczony): 1702
+  FN (Bot niewykryty): 45
+------------------------------
+ANALIZA PCA (Odwzorowanie 2D):
+  Wyjaśniona wariancja PC1 (Oś X): 34.50%
+  Wyjaśniona wariancja PC2 (Oś Y): 30.11%
+  RAZEM: 64.61% informacji z 9 cech.
+
+TABELA WPŁYWU CECH NA PCA (Loadings):
+                         PC1       PC2
+applicationTime     0.395898  0.405191
+databaseTime        0.395846  0.405387
+memoryUsage_market  0.382643 -0.379565
+memoryUsage_trade   0.380493 -0.381220
+cpuUsage_trade      0.364950 -0.290827
+apiTime             0.356791  0.423234
+cpuUsage_market     0.332724 -0.302997
+endpointUrl         0.110226  0.114833
+apiMethod          -0.109715 -0.115684
+
+--- 4. Generowanie wykresu ---
+[SUKCES] Wykres zapisano w: ../H1U10-50-40-10/visualizations\Gaussian_Boundary_Full.png
+[SUKCES] Pełny log konsoli zapisano w: ../H1U10-50-40-10/visualizations\Gaussian_Boundary_Full_ConsoleLog.txt

@@ -1,0 +1,24 @@
+                       antecedents           consequents  support  confidence   lift
+       H_databaseTime, SCRAPER_BOT     H_applicationTime   0.1210      1.0000 6.6671
+  H_memoryUsage_trade, SCRAPER_BOT  H_memoryUsage_market   0.1244      0.9627 6.4242
+H_memoryUsage_traffic, SCRAPER_BOT  H_memoryUsage_market   0.1213      0.9602 6.4075
+H_memoryUsage_traffic, SCRAPER_BOT   H_memoryUsage_trade   0.1207      0.9560 6.3814
+                       Method_POST         ACTIVE_TRADER   0.0620      0.7680 5.7665
+       H_databaseTime, SCRAPER_BOT             H_apiTime   0.0864      0.7138 4.7601
+    H_applicationTime, SCRAPER_BOT             H_apiTime   0.0864      0.7137 4.7596
+     H_cpuUsage_trade, SCRAPER_BOT    H_cpuUsage_traffic   0.0767      0.6345 4.2352
+     H_cpuUsage_trade, SCRAPER_BOT     H_cpuUsage_market   0.0764      0.6316 4.2122
+    H_cpuUsage_market, SCRAPER_BOT    H_cpuUsage_traffic   0.0708      0.5792 3.8657
+            H_apiTime, SCRAPER_BOT  H_memoryUsage_market   0.0583      0.4679 3.1227
+            H_apiTime, SCRAPER_BOT   H_memoryUsage_trade   0.0578      0.4639 3.0964
+            H_apiTime, SCRAPER_BOT H_memoryUsage_traffic   0.0547      0.4391 3.0023
+       H_databaseTime, SCRAPER_BOT  H_memoryUsage_market   0.0510      0.4215 2.8129
+    H_applicationTime, SCRAPER_BOT  H_memoryUsage_market   0.0510      0.4215 2.8128
+       H_databaseTime, SCRAPER_BOT   H_memoryUsage_trade   0.0501      0.4139 2.7628
+    H_applicationTime, SCRAPER_BOT   H_memoryUsage_trade   0.0501      0.4139 2.7628
+             Method_GET, H_apiTime           SCRAPER_BOT   0.1245      0.9641 1.1794
+        Method_GET, H_databaseTime           SCRAPER_BOT   0.1210      0.9556 1.1690
+     Method_GET, H_applicationTime           SCRAPER_BOT   0.1210      0.9556 1.1690
+  Method_GET, H_memoryUsage_market           SCRAPER_BOT   0.1296      0.9187 1.1238
+ Method_GET, H_memoryUsage_traffic           SCRAPER_BOT   0.1263      0.9185 1.1236
+   Method_GET, H_memoryUsage_trade           SCRAPER_BOT   0.1293      0.9181 1.1231

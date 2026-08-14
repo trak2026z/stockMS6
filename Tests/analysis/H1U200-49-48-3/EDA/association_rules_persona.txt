@@ -1,0 +1,24 @@
+                         antecedents           consequents  support  confidence   lift
+       ACTIVE_TRADER, H_databaseTime     H_applicationTime   0.1114      1.0000 6.6805
+ H_memoryUsage_market, ACTIVE_TRADER   H_memoryUsage_trade   0.0970      0.9835 6.5727
+ H_memoryUsage_market, ACTIVE_TRADER H_memoryUsage_traffic   0.0963      0.9772 6.5336
+H_memoryUsage_traffic, ACTIVE_TRADER   H_memoryUsage_trade   0.0965      0.9745 6.5127
+            ACTIVE_TRADER, H_apiTime        H_databaseTime   0.0937      0.9139 6.1107
+            ACTIVE_TRADER, H_apiTime     H_applicationTime   0.0937      0.9140 6.1062
+    H_cpuUsage_market, ACTIVE_TRADER      H_cpuUsage_trade   0.0795      0.7928 5.3063
+   ACTIVE_TRADER, H_cpuUsage_traffic      H_cpuUsage_trade   0.0782      0.7822 5.2353
+   ACTIVE_TRADER, H_cpuUsage_traffic     H_cpuUsage_market   0.0764      0.7643 5.1320
+  H_memoryUsage_trade, ACTIVE_TRADER      H_cpuUsage_trade   0.0529      0.5322 3.5621
+ H_memoryUsage_market, ACTIVE_TRADER    H_cpuUsage_traffic   0.0520      0.5274 3.5554
+ H_memoryUsage_market, ACTIVE_TRADER     H_cpuUsage_market   0.0515      0.5225 3.5085
+  H_memoryUsage_trade, ACTIVE_TRADER    H_cpuUsage_traffic   0.0517      0.5196 3.5023
+ H_memoryUsage_market, ACTIVE_TRADER      H_cpuUsage_trade   0.0516      0.5231 3.5009
+  H_memoryUsage_trade, ACTIVE_TRADER     H_cpuUsage_market   0.0516      0.5191 3.4854
+H_memoryUsage_traffic, ACTIVE_TRADER     H_cpuUsage_market   0.0509      0.5137 3.4493
+H_memoryUsage_traffic, ACTIVE_TRADER      H_cpuUsage_trade   0.0509      0.5143 3.4425
+H_memoryUsage_traffic, ACTIVE_TRADER    H_cpuUsage_traffic   0.0502      0.5065 3.4146
+    ACTIVE_TRADER, H_applicationTime           Method_POST   0.1042      0.9348 2.5967
+       ACTIVE_TRADER, H_databaseTime           Method_POST   0.1041      0.9347 2.5966
+            ACTIVE_TRADER, H_apiTime           Method_POST   0.0933      0.9098 2.5275
+                         SCRAPER_BOT            Method_GET   0.1695      1.0000 1.5625
+                         Method_POST         ACTIVE_TRADER   0.3112      0.8646 1.2438

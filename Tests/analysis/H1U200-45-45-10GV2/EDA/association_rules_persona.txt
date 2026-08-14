@@ -1,0 +1,42 @@
+                         antecedents           consequents  support  confidence   lift
+  H_memoryUsage_traffic, SCRAPER_BOT  H_memoryUsage_market   0.0566      1.0000 6.7817
+    SCRAPER_BOT, H_memoryUsage_trade  H_memoryUsage_market   0.0566      1.0000 6.7817
+    H_memoryUsage_trade, SCRAPER_BOT H_memoryUsage_traffic   0.0566      1.0000 6.7289
+H_memoryUsage_traffic, ACTIVE_TRADER   H_memoryUsage_trade   0.0664      1.0000 6.6824
+         SCRAPER_BOT, H_databaseTime     H_applicationTime   0.0929      1.0000 6.6720
+ ACTIVE_TRADER, H_memoryUsage_market H_memoryUsage_traffic   0.0645      0.9879 6.6472
+ ACTIVE_TRADER, H_memoryUsage_market   H_memoryUsage_trade   0.0648      0.9920 6.6293
+     SCRAPER_BOT, H_cpuUsage_traffic      H_cpuUsage_trade   0.0625      0.8846 5.9298
+      SCRAPER_BOT, H_cpuUsage_market    H_cpuUsage_traffic   0.0557      0.7935 5.5372
+      SCRAPER_BOT, H_cpuUsage_market        H_databaseTime   0.0582      0.8289 5.5327
+      SCRAPER_BOT, H_cpuUsage_market     H_applicationTime   0.0582      0.8289 5.5302
+              SCRAPER_BOT, H_apiTime        H_databaseTime   0.0706      0.8262 5.5150
+              SCRAPER_BOT, H_apiTime     H_applicationTime   0.0706      0.8263 5.5130
+     SCRAPER_BOT, H_cpuUsage_traffic        H_databaseTime   0.0582      0.8238 5.4989
+     SCRAPER_BOT, H_cpuUsage_traffic     H_applicationTime   0.0582      0.8238 5.4964
+      SCRAPER_BOT, H_cpuUsage_market      H_cpuUsage_trade   0.0566      0.8068 5.4083
+       SCRAPER_BOT, H_cpuUsage_trade        H_databaseTime   0.0589      0.8029 5.3591
+       SCRAPER_BOT, H_cpuUsage_trade     H_applicationTime   0.0589      0.8029 5.3572
+      SCRAPER_BOT, H_cpuUsage_market             H_apiTime   0.0541      0.7705 5.1412
+     SCRAPER_BOT, H_cpuUsage_traffic             H_apiTime   0.0519      0.7342 4.8988
+       SCRAPER_BOT, H_cpuUsage_trade             H_apiTime   0.0538      0.7337 4.8957
+                      H_databaseTime           SCRAPER_BOT   0.0929      0.6200 3.2155
+                   H_applicationTime           SCRAPER_BOT   0.0929      0.6198 3.2146
+                           H_apiTime           SCRAPER_BOT   0.0855      0.5703 2.9576
+                  H_cpuUsage_traffic           SCRAPER_BOT   0.0706      0.4929 2.5565
+                    H_cpuUsage_trade           SCRAPER_BOT   0.0733      0.4914 2.5484
+                   H_cpuUsage_market           SCRAPER_BOT   0.0702      0.4816 2.4977
+                H_memoryUsage_market           SCRAPER_BOT   0.0577      0.3911 2.0283
+               H_memoryUsage_traffic           SCRAPER_BOT   0.0566      0.3806 1.9741
+                 H_memoryUsage_trade           SCRAPER_BOT   0.0566      0.3780 1.9605
+              SCRAPER_BOT, H_apiTime            Method_GET   0.0855      1.0000 1.5480
+                         SCRAPER_BOT            Method_GET   0.1928      1.0000 1.5480
+      SCRAPER_BOT, H_applicationTime            Method_GET   0.0929      1.0000 1.5480
+      SCRAPER_BOT, H_cpuUsage_market            Method_GET   0.0702      1.0000 1.5480
+         SCRAPER_BOT, H_databaseTime            Method_GET   0.0929      1.0000 1.5480
+  H_memoryUsage_traffic, SCRAPER_BOT            Method_GET   0.0566      1.0000 1.5480
+     SCRAPER_BOT, H_cpuUsage_traffic            Method_GET   0.0706      1.0000 1.5480
+    SCRAPER_BOT, H_memoryUsage_trade            Method_GET   0.0566      1.0000 1.5480
+   SCRAPER_BOT, H_memoryUsage_market            Method_GET   0.0577      1.0000 1.5480
+       SCRAPER_BOT, H_cpuUsage_trade            Method_GET   0.0733      1.0000 1.5480
+                         Method_POST         ACTIVE_TRADER   0.2550      0.7203 1.3172

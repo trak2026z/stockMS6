@@ -1,0 +1,20 @@
+Target: databaseTime
+MSE: 3886.945068359375
+R2: 0.9981790781021118
+
+Feature Importance:
+applicationTime: 0.8952
+apiTime: 0.0295
+memoryUsage_traffic: 0.0228
+cpuUsage_traffic: 0.0141
+cpuUsage_market: 0.0080
+memoryUsage_trade: 0.0074
+id_trade_log: 0.0072
+cpuUsage_trade: 0.0048
+applicationTime_trade_log: 0.0026
+id: 0.0021
+databaseTime_trade_log: 0.0020
+numberOfBuyOffers: 0.0017
+memoryUsage_market: 0.0017
+userId: 0.0005
+numberOfSellOffers: 0.0005

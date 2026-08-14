@@ -1,0 +1,6 @@
+
+TP: 438976 | FP: 653683 | FN: 10996 | TN: 51127
+Accuracy:  0.4244
+Precision: 0.4018
+Recall:    0.9756
+F1 Score:  0.5691

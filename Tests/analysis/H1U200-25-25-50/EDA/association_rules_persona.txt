@@ -1,0 +1,23 @@
+                       antecedents          consequents  support  confidence   lift
+       H_databaseTime, SCRAPER_BOT    H_applicationTime   0.1386      1.0000 6.6672
+H_memoryUsage_traffic, SCRAPER_BOT  H_memoryUsage_trade   0.1139      0.9294 6.1987
+H_memoryUsage_traffic, SCRAPER_BOT H_memoryUsage_market   0.1087      0.8869 6.0758
+ H_memoryUsage_market, SCRAPER_BOT  H_memoryUsage_trade   0.1248      0.8993 5.9976
+   H_cpuUsage_traffic, SCRAPER_BOT    H_cpuUsage_market   0.0950      0.6825 4.5755
+   H_cpuUsage_traffic, SCRAPER_BOT     H_cpuUsage_trade   0.0938      0.6745 4.5000
+    H_cpuUsage_market, SCRAPER_BOT     H_cpuUsage_trade   0.0926      0.6529 4.3563
+H_memoryUsage_traffic, SCRAPER_BOT   H_cpuUsage_traffic   0.0645      0.5261 3.5994
+ H_memoryUsage_market, SCRAPER_BOT   H_cpuUsage_traffic   0.0715      0.5152 3.5249
+   H_cpuUsage_traffic, SCRAPER_BOT  H_memoryUsage_trade   0.0732      0.5264 3.5107
+H_memoryUsage_traffic, SCRAPER_BOT     H_cpuUsage_trade   0.0592      0.4829 3.2219
+     H_cpuUsage_trade, SCRAPER_BOT  H_memoryUsage_trade   0.0666      0.4675 3.1180
+    H_cpuUsage_market, SCRAPER_BOT  H_memoryUsage_trade   0.0663      0.4674 3.1175
+ H_memoryUsage_market, SCRAPER_BOT     H_cpuUsage_trade   0.0644      0.4640 3.0959
+H_memoryUsage_traffic, SCRAPER_BOT    H_cpuUsage_market   0.0558      0.4552 3.0518
+ H_memoryUsage_market, SCRAPER_BOT    H_cpuUsage_market   0.0616      0.4438 2.9754
+       H_databaseTime, SCRAPER_BOT   H_cpuUsage_traffic   0.0570      0.4113 2.8140
+    SCRAPER_BOT, H_applicationTime   H_cpuUsage_traffic   0.0570      0.4112 2.8135
+       H_databaseTime, SCRAPER_BOT    H_cpuUsage_market   0.0554      0.3999 2.6807
+    SCRAPER_BOT, H_applicationTime    H_cpuUsage_market   0.0554      0.3998 2.6803
+       H_databaseTime, SCRAPER_BOT     H_cpuUsage_trade   0.0513      0.3702 2.4701
+    SCRAPER_BOT, H_applicationTime     H_cpuUsage_trade   0.0513      0.3702 2.4697

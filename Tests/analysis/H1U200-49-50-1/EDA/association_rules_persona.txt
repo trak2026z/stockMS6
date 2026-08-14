@@ -1,0 +1,23 @@
+                         antecedents          consequents  support  confidence   lift
+       ACTIVE_TRADER, H_databaseTime    H_applicationTime   0.1256      1.0000 6.6799
+ACTIVE_TRADER, H_memoryUsage_traffic H_memoryUsage_market   0.1120      0.9874 6.6431
+ACTIVE_TRADER, H_memoryUsage_traffic  H_memoryUsage_trade   0.1108      0.9769 6.5550
+ ACTIVE_TRADER, H_memoryUsage_market  H_memoryUsage_trade   0.1116      0.9668 6.4878
+            ACTIVE_TRADER, H_apiTime       H_databaseTime   0.1180      0.9479 6.3395
+            ACTIVE_TRADER, H_apiTime    H_applicationTime   0.1180      0.9479 6.3321
+    ACTIVE_TRADER, H_cpuUsage_market   H_cpuUsage_traffic   0.1042      0.9138 6.1177
+    ACTIVE_TRADER, H_cpuUsage_market     H_cpuUsage_trade   0.1015      0.8899 5.9443
+   ACTIVE_TRADER, H_cpuUsage_traffic     H_cpuUsage_trade   0.1007      0.8833 5.9005
+    ACTIVE_TRADER, H_cpuUsage_market H_memoryUsage_market   0.0582      0.5106 3.4355
+    ACTIVE_TRADER, H_cpuUsage_market  H_memoryUsage_trade   0.0582      0.5106 3.4264
+   ACTIVE_TRADER, H_cpuUsage_traffic H_memoryUsage_market   0.0578      0.5072 3.4127
+ACTIVE_TRADER, H_memoryUsage_traffic   H_cpuUsage_traffic   0.0578      0.5097 3.4123
+ACTIVE_TRADER, H_memoryUsage_traffic    H_cpuUsage_market   0.0580      0.5108 3.4064
+   ACTIVE_TRADER, H_cpuUsage_traffic  H_memoryUsage_trade   0.0578      0.5072 3.4036
+     ACTIVE_TRADER, H_cpuUsage_trade H_memoryUsage_market   0.0544      0.4766 3.2064
+     ACTIVE_TRADER, H_cpuUsage_trade  H_memoryUsage_trade   0.0545      0.4772 3.2024
+ACTIVE_TRADER, H_memoryUsage_traffic     H_cpuUsage_trade   0.0537      0.4736 3.1636
+    ACTIVE_TRADER, H_applicationTime          Method_POST   0.1218      0.9686 2.4040
+       ACTIVE_TRADER, H_databaseTime          Method_POST   0.1217      0.9685 2.4039
+            ACTIVE_TRADER, H_apiTime          Method_POST   0.1194      0.9588 2.3798
+                         SCRAPER_BOT           Method_GET   0.0579      1.0000 1.6747
