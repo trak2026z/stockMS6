@@ -2,3 +2,7 @@ traffic/*.pkl
 traffic/*.json
 ReadyTests/
 Tests/logs/
+.ipynb_checkpoints/
+venv/
+.venv/
+.DS_Store
