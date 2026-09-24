@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 import joblib
 import os
 import argparse
+from utils import prepare_data, time_split
 
 def train_gaussian(input_file, model_output):    
     if not os.path.exists(input_file):
@@ -14,67 +15,28 @@ def train_gaussian(input_file, model_output):
         return
 
     print("Wczytywanie danych...")
-    df = pd.read_csv(input_file, on_bad_lines='skip', low_memory=False)
-    
-    df['is_bot'] = df['userPersona'].astype(str).apply(lambda x: 1 if 'SCRAPER_BOT' in x else 0)
-    
-    feature_cols = [
-        'apiTime', 'applicationTime', 'databaseTime', 
-        'cpuUsage_market', 'cpuUsage_trade', 
-        'memoryUsage_trade', 'memoryUsage_market', 
-        'endpointUrl', 'apiMethod'
-    ]
-    
-    for col in feature_cols:
-        if col not in df.columns:
-            df[col] = 0
-    
-    df_data = df[feature_cols + ['is_bot']].copy()
-    
-    num_cols = df_data.select_dtypes(include=[np.number]).columns
-    df_data[num_cols] = df_data[num_cols].fillna(0)
-        
-    df_humans = df_data[df_data['is_bot'] == 0].copy()
-    df_bots = df_data[df_data['is_bot'] == 1].copy()
+    df = prepare_data(pd.read_csv(input_file, on_bad_lines='skip', low_memory=False))
 
-    train_df, X_test_human = train_test_split(df_humans, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = time_split(df, test_size=0.2)
 
-    test_df = pd.concat([X_test_human, df_bots], axis=0).sample(frac=1, random_state=42)
-    
-    y_test_true = test_df['is_bot']
+    X_train = X_train[y_train == 0]
 
-    print(f"Trening na {len(train_df)} próbkach ACTIVE_USER i CAUTIOUS_USER.")
-    print(f"Testowanie na {len(test_df)} próbkach ACTIVE_USER i CAUTIOUS_USER + SCRAPER_BOT.")
+    print(f"Trening na {len(X_train)} próbkach (tylko Human).")
+    print(f"Test na {len(X_test)} próbkach (Human + Bot).")
     
-    url_counts = train_df['endpointUrl'].value_counts()
+    url_counts = X_train['endpointUrl'].value_counts(normalize=True)
     
-    def map_frequency(data_series, counts):
+    def map_url_rarity(data_series, counts):
         return data_series.map(counts).fillna(0)
-
-    train_df['endpointUrl'] = map_frequency(train_df['endpointUrl'], url_counts)
-    test_df['endpointUrl'] = map_frequency(test_df['endpointUrl'], url_counts)
-
-    ohe = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
-    ohe.fit(train_df[['apiMethod']])
     
-    train_encoded = ohe.transform(train_df[['apiMethod']])
-    test_encoded = ohe.transform(test_df[['apiMethod']])
-    
-    encoded_cols = ohe.get_feature_names_out(['apiMethod'])
-    
-    train_encoded_df = pd.DataFrame(train_encoded, columns=encoded_cols, index=train_df.index)
-    test_encoded_df = pd.DataFrame(test_encoded, columns=encoded_cols, index=test_df.index)
-    
-    drop_cols = ['apiMethod', 'is_bot']
-    
-    X_train = pd.concat([train_df.drop(columns=drop_cols), train_encoded_df], axis=1)
-    X_test = pd.concat([test_df.drop(columns=drop_cols), test_encoded_df], axis=1)
+    X_train['endpointUrl'] = map_url_rarity(X_train['endpointUrl'], url_counts)
+    X_test['endpointUrl'] = map_url_rarity(X_test['endpointUrl'], url_counts)
     
     X_train = X_train.astype(float)
     X_test = X_test.astype(float)
 
     train_columns = X_train.columns.tolist()
-    print(f"Liczba cech po transformacji: {len(train_columns)}")
+    print(f"Liczba cech: {len(train_columns)}")
     
     clf = EllipticEnvelope(
         contamination=0.01,
@@ -84,12 +46,10 @@ def train_gaussian(input_file, model_output):
     
     clf.fit(X_train)
 
-    y_pred_raw = clf.predict(X_test)
-    
-    y_pred = [1 if x == -1 else 0 for x in y_pred_raw]
+    y_pred = (clf.predict(X_test) == -1).astype(int)
 
     print("\nWyniki na zbiorze TESTOWYM:")
-    cm = confusion_matrix(y_test_true, y_pred)
+    cm = confusion_matrix(y_test, y_pred)
     
     try:
         tn, fp, fn, tp = cm.ravel()
@@ -101,7 +61,7 @@ def train_gaussian(input_file, model_output):
         print(cm)
     
     print("\nRaport klasyfikacji:")
-    print(classification_report(y_test_true, y_pred, target_names=['Human', 'Bot']))
+    print(classification_report(y_test, y_pred, target_names=['Human', 'Bot']))
 
     save_path = model_output
     if os.path.exists('weights'):
@@ -110,7 +70,6 @@ def train_gaussian(input_file, model_output):
     save_data = {
         'model': clf,
         'url_counts': url_counts,
-        'ohe_encoder': ohe,
         'train_columns': train_columns
     }
 

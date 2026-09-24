@@ -6,3 +6,5 @@ Tests/logs/
 venv/
 .venv/
 .DS_Store
+*.sql
+*.ipynb

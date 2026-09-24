@@ -8,34 +8,19 @@ import matplotlib.pyplot as plt
 import os
 import joblib
 import argparse
+from utils import prepare_data, time_split
 
 def train_model(input_file, model_output, encoder_output, plot_output):
     if not os.path.exists(input_file):
         print(f"Błąd: Nie znaleziono pliku {input_file}")
         return
 
-    df = pd.read_csv(input_file, on_bad_lines='skip', low_memory=False)
-    
-    df['is_bot'] = df['userPersona'].astype(str).apply(lambda x: 1 if 'SCRAPER_BOT' in x else 0)
+    df = prepare_data(pd.read_csv(input_file, on_bad_lines='skip', low_memory=False))
     
     print("Rozkład klas (0=Człowiek, 1=Bot):")
     print(df['is_bot'].value_counts())
 
-    feature_cols = [
-        'apiTime', 'applicationTime', 'databaseTime', 
-        'cpuUsage_market', 'cpuUsage_trade', 
-        'memoryUsage_trade', 'memoryUsage_market', 
-        'endpointUrl', 'apiMethod'
-    ]
-    
-    df_model = df[feature_cols].copy()
-    num_cols = df_model.select_dtypes(include=[np.number]).columns
-    df_model[num_cols] = df_model[num_cols].fillna(0)
-    
-    X = df_model
-    y = df['is_bot']
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+    X_train, X_test, y_train, y_test = time_split(df, test_size=0.2)
     
     X_train = X_train.copy()
     X_test = X_test.copy()
@@ -49,22 +34,9 @@ def train_model(input_file, model_output, encoder_output, plot_output):
     X_test['endpointUrl'] = map_frequency(X_test['endpointUrl'], url_counts)
     
     print("Zastosowano Frequency Encoding dla endpointUrl.")
-
-    ohe = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
-    ohe.fit(X_train[['apiMethod']])
     
-    train_encoded = ohe.transform(X_train[['apiMethod']])
-    test_encoded = ohe.transform(X_test[['apiMethod']])
-    encoded_cols = ohe.get_feature_names_out(['apiMethod'])
-    
-    train_encoded_df = pd.DataFrame(train_encoded, columns=encoded_cols, index=X_train.index)
-    test_encoded_df = pd.DataFrame(test_encoded, columns=encoded_cols, index=X_test.index)
-    
-    X_train_final = pd.concat([X_train.drop(columns=['apiMethod']), train_encoded_df], axis=1)
-    X_test_final = pd.concat([X_test.drop(columns=['apiMethod']), test_encoded_df], axis=1)
-    
-    X_train_final = X_train_final.astype(float)
-    X_test_final = X_test_final.astype(float)
+    X_train_final = X_train.astype(float)
+    X_test_final = X_test.astype(float)
 
     print(f"Liczba cech po transformacji: {X_train_final.shape[1]}")
 
@@ -85,7 +57,7 @@ def train_model(input_file, model_output, encoder_output, plot_output):
     precision, recall, thresholds = precision_recall_curve(y_test, y_proba)
 
     f1_scores = 2 * (precision * recall) / (precision + recall)
-    best_idx = np.argmax(f1_scores)
+    best_idx = np.nanargmax(f1_scores)
     best_threshold = thresholds[best_idx]
 
     print(f"Najlepszy próg: {best_threshold:.4f}")
@@ -93,7 +65,6 @@ def train_model(input_file, model_output, encoder_output, plot_output):
 
     save_data = {
         'url_counts': url_counts,
-        'ohe_encoder': ohe,
         'best_threshold': best_threshold 
     }
 
@@ -129,7 +100,6 @@ def train_model(input_file, model_output, encoder_output, plot_output):
 
     save_data = {
         'url_counts': url_counts,
-        'ohe_encoder': ohe
     }
     
     model.save_model(model_output)
