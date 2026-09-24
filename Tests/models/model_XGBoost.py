@@ -92,7 +92,7 @@ def train_model(input_file, model_output, encoder_output, plot_output):
         os.makedirs('analysisResults')
         
     plt.figure(figsize=(12, 6))
-    xgb.plot_importance(model, importance_type='weight', max_num_features=15)
+    xgb.plot_importance(model, importance_type='gain', max_num_features=15, values_format="{v:.2f}")
     plt.title('Feature Importance (XGBoost)')
     plt.tight_layout()
     plt.savefig(plot_output)
@@ -106,7 +106,7 @@ def train_model(input_file, model_output, encoder_output, plot_output):
     joblib.dump(save_data, encoder_output)
     
     print(f"\nModel zapisany jako: {model_output}")
-    print(f"Enkodery (URL counts + OHE) zapisane jako: {encoder_output}")
+    print(f"URL counts zapisane jako: {encoder_output}")
     
     bot_avg = df[df['is_bot'] == 1]['apiTime'].mean()
     human_avg = df[df['is_bot'] == 0]['apiTime'].mean()
