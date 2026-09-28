@@ -1,7 +1,6 @@
 import os
 import argparse
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -112,64 +111,6 @@ def mergeData(source_path):
         print(e)
         return False
 
-def focusedPersonaCorrelation(source_path):
-    print("\nDedykowana analiza korelacji")
-    input_file = os.path.join(source_path, 'merged_data.csv')
-    try:
-        df = pd.read_csv(input_file)
-        
-        if 'userPersona' not in df.columns:
-            return
-
-        persona_dummies = pd.get_dummies(df['userPersona'], prefix='Persona')
-        
-        numeric_cols = [col for col in df.select_dtypes(include=[np.number]).columns 
-                        if col not in ['id', 'userId', 'id_trade_log', 'timestamp']]
-        
-        if 'apiMethod' in df.columns:
-             method_dummies = pd.get_dummies(df['apiMethod'], prefix='Method')
-             analysis_df = pd.concat([persona_dummies, df[numeric_cols], method_dummies], axis=1)
-        else:
-             analysis_df = pd.concat([persona_dummies, df[numeric_cols]], axis=1)
-
-        corr_matrix = analysis_df.corr(method='pearson')
-        
-        persona_rows = [c for c in corr_matrix.index if c.startswith('Persona_')]
-        other_cols = [c for c in corr_matrix.columns if not c.startswith('Persona_')]
-        
-        focused_corr = corr_matrix.loc[persona_rows, other_cols]
-        
-        focused_corr = focused_corr.loc[:, (focused_corr != 0).any(axis=0)]
-
-        if focused_corr.empty:
-            print("Brak istotnych korelacji.")
-            return
-
-        plt.figure(figsize=(16, 8))
-        sns.heatmap(focused_corr, annot=True, cmap='RdBu_r', center=0, fmt=".2f", linewidths=.5)
-        plt.title('Klasa użytkownika względem parametrów systemowych i typów API')
-        plt.xticks(rotation=45, ha='right')
-        plt.tight_layout()
-        
-        output_img = os.path.join(OUTPUT_DIR, 'persona_correlation_matrix.png')
-        plt.savefig(output_img)
-        plt.close()
-        
-        report = "Najsilniejsze korelacje dla Person (abs > 0.1):\n"
-        for persona in persona_rows:
-            series = focused_corr.loc[persona]
-            strong_corrs = series[series.abs() > 0.1].sort_values(key=abs, ascending=False)
-            if not strong_corrs.empty:
-                report += f"\n[{persona}]:\n"
-                report += strong_corrs.to_string() + "\n"
-        
-        save_text_report('persona_correlation_report.txt', report)
-
-    except Exception as e:
-        print(e)
-        import traceback
-        traceback.print_exc()
-
 def personaAnalysis(source_path):
     print("\nAnaliza wydajności per klasa użytkownika")
     input_file = os.path.join(source_path, 'merged_data.csv')
@@ -208,7 +149,6 @@ def main():
     sepReplicas(args.dir)
     
     if mergeData(args.dir):
-        focusedPersonaCorrelation(args.dir)
         personaAnalysis(args.dir)
     else:
         pass
