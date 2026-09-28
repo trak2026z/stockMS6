@@ -299,57 +299,11 @@ mv *.pkl *.json weights/
 
 ---
 
-## 8. PCE / Model Visualization
-
-Before running visualization scripts, update their input paths so that they point to the directory corresponding to the current test.
-
-Visualization scripts:
-
-```text
-visualize_IsolationForest.py
-visualize_OCSVM.py
-visualize_RCE.py
-visualize_XGBoost.py
-```
-
-Example configuration:
-
-```python
-INPUT_FILE = '../H1U10-50-40-10/merged_data.csv'
-MODEL_FILE = './weights/bot_request_modelH1U10-50-40-10.json'
-ENCODERS_FILE = './weights/bot_request_encoders_H1U10-50-40-10.pkl'
-OUTPUT_DIR = '../H1U10-50-40-10/visualizations'
-```
-
-For another test, change the directory name accordingly, for example:
-
-```text
-M2U200-45-45-10
-```
-
-Run the visualization scripts:
-
-```bash
-python visualize_IsolationForest.py
-python visualize_OCSVM.py
-python visualize_RCE.py
-python visualize_XGBoost.py
-```
-
-Example XGBoost outputs:
-
-```text
-../M2U200-45-45-10/visualizations/XGBoost_Boundary_Full_Stats.txt
-../M2U200-45-45-10/visualizations/XGBoost_Boundary_Full.png
-```
-
----
-
-## 9. Predictive Version — GUARD
+## 8. Predictive Version — GUARD
 
 The GUARD version enables bot detection and uses the trained XGBoost model.
 
-### 9.1. Enable GUARD in the application
+### 8.1. Enable GUARD in the application
 
 The following lines must be **uncommented**.
 
@@ -367,7 +321,7 @@ verifyUserActivity(info).catch(err => console.error("Error in bot protection:", 
 
 ---
 
-## 10. Configure the GUARD Model
+## 9. Configure the GUARD Model
 
 The Guard module requires the XGBoost model weights and encoders.
 
@@ -386,7 +340,7 @@ encoders_data = joblib.load("bot_xgboost_encoders_H1U200-45-45-10.pkl")
 
 The referenced `.json` and `.pkl` files must be placed in the directory expected by `bot_guard.py`, typically the same `traffic` directory.
 
-### 10.1. Configure the decision threshold
+### 9.1. Configure the decision threshold
 
 In `traffic/bot_guard.py`, update:
 
@@ -412,7 +366,7 @@ BOT_THRESHOLD = 0.4504
 
 ---
 
-## 11. Copy XGBoost Weights to GUARD
+## 10. Copy XGBoost Weights to GUARD
 
 Before deploying a new model, remove previous GUARD weights:
 
@@ -446,7 +400,7 @@ cp \
 
 ---
 
-## 12. Configure a GUARD Test
+## 11. Configure a GUARD Test
 
 In `params.txt`, use `start-test-guard`.
 
@@ -466,7 +420,7 @@ The `G` suffix can be used in the test name to distinguish GUARD tests from corr
 
 ---
 
-## 13. Start the System with GUARD
+## 12. Start the System with GUARD
 
 Return to the repository root and run:
 
@@ -484,7 +438,7 @@ For **SH**:
 
 ---
 
-## 14. Analyze GUARD Test Results
+## 13. Analyze GUARD Test Results
 
 Remove the previous SQL file from `Tests/main`:
 
@@ -516,7 +470,7 @@ cd Tests
 
 ---
 
-## 15. End-to-End Example — Without GUARD
+## 14. End-to-End Example — Without GUARD
 
 ### Step 1: Disable GUARD
 
@@ -572,20 +526,9 @@ python model_RCE.py --dir M30U200-45-45-10
 python model_XGBoost.py --dir M30U200-45-45-10
 ```
 
-### Step 7: Run visualizations
-
-Update the directory names inside the visualization scripts, then run:
-
-```bash
-python visualize_IsolationForest.py
-python visualize_OCSVM.py
-python visualize_RCE.py
-python visualize_XGBoost.py
-```
-
 ---
 
-## 16. End-to-End Example — With GUARD
+## 15. End-to-End Example — With GUARD
 
 ### Step 1: Enable GUARD
 
@@ -658,7 +601,7 @@ cd Tests
 
 ---
 
-## 17. Command Summary
+## 16. Command Summary
 
 ### Without GUARD
 
@@ -701,18 +644,9 @@ python model_RCE.py --dir <TEST_DIR>
 python model_XGBoost.py --dir <TEST_DIR>
 ```
 
-### Visualization
-
-```bash
-python visualize_IsolationForest.py
-python visualize_OCSVM.py
-python visualize_RCE.py
-python visualize_XGBoost.py
-```
-
 ---
 
-## 18. Important Notes
+## 17. Important Notes
 
 - Run load tests for at least **300 seconds** unless a shorter run is intentionally used only for a smoke test.
 - Commented lines in `params.txt` are not executed.
