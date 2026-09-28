@@ -4,11 +4,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import networkx as nx
-import xgboost as xgb
-from mlxtend.frequent_patterns import apriori, association_rules
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
 
 OUTPUT_DIR = 'EDA'
 
@@ -198,154 +193,6 @@ def personaAnalysis(source_path):
     except Exception as e:
         print(e)
 
-def association(source_path):
-    print("\nReguły asocjacji")
-    input_file = os.path.join(source_path, 'merged_data.csv')
-    
-    try:
-        df = pd.read_csv(input_file)
-        if 'userPersona' not in df.columns:
-            return
-        
-        dataset = pd.DataFrame()
-        dataset = pd.concat([dataset, pd.get_dummies(df['userPersona'], prefix='Persona')], axis=1)
-
-        if 'apiMethod' in df.columns:
-             dataset = pd.concat([dataset, pd.get_dummies(df['apiMethod'], prefix='Method')], axis=1)
-
-        numeric_cols = [
-            'applicationTime', 'databaseTime', 'apiTime', 
-            'cpuUsage_traffic', 'memoryUsage_traffic', 
-            'cpuUsage_market', 'memoryUsage_market',
-            'cpuUsage_trade', 'memoryUsage_trade'
-        ]
-        
-        for col in numeric_cols:
-            if col in df.columns and pd.api.types.is_numeric_dtype(df[col]):
-                if df[col].var() == 0: continue
-                threshold = df[col].quantile(0.85)
-                dataset[f'H_{col}'] = (df[col] > threshold).astype(int)
-
-        dataset = dataset.astype(bool)
-
-        frequent_itemsets = apriori(dataset, min_support=0.05, use_colnames=True, max_len=3)
-
-        if frequent_itemsets.empty:
-            return
-
-        rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1.1)
-        
-        if rules.empty:
-            return
-        
-        persona_rules = rules[
-            rules['antecedents'].apply(lambda x: any('Persona_' in s for s in x)) | 
-            rules['consequents'].apply(lambda x: any('Persona_' in s for s in x))
-        ].copy()
-
-        persona_rules['pair_key'] = persona_rules.apply(lambda x: frozenset(list(x['antecedents']) + list(x['consequents'])), axis=1)
-        persona_rules = persona_rules.sort_values(by='confidence', ascending=False).drop_duplicates(subset=['pair_key'])
-
-        def clean_label(item_set):
-            items = list(item_set)
-            cleaned_items = [str(i).replace('Persona_', '') for i in items]
-            return ', '.join(cleaned_items)
-
-        persona_rules['antecedents'] = persona_rules['antecedents'].apply(clean_label)
-        persona_rules['consequents'] = persona_rules['consequents'].apply(clean_label)
-        
-        persona_rules = persona_rules.sort_values(by='lift', ascending=False)
-        cols_out = ['antecedents', 'consequents', 'support', 'confidence', 'lift']
-        persona_rules[cols_out] = persona_rules[cols_out].round(4)
-
-        if not persona_rules.empty:
-            print(persona_rules[cols_out].head(15).to_string(index=False))
-            save_text_report('association_rules_persona.txt', persona_rules[cols_out].to_string(index=False))
-
-            plt.figure(figsize=(14, 10))
-            G = nx.DiGraph()
-            for _, row in persona_rules.head(20).iterrows():
-                G.add_edge(row['antecedents'], row['consequents'], weight=row['lift'])
-            
-            pos = nx.spring_layout(G, k=2.0, seed=42)
-            
-            node_colors = []
-            for node in G.nodes():
-                if any(x in node for x in ['SCRAPER', 'TRADER', 'USER']):
-                    node_colors.append('#ff9999')
-                elif 'H_' in node: 
-                    node_colors.append('#99ff99') 
-                else: 
-                    node_colors.append('#99ccff')
-
-            nx.draw(G, pos, with_labels=True, node_color=node_colors, 
-                    node_size=3500, font_size=10, font_weight='bold', arrowsize=20)
-            
-            plt.title("Analiza asocjacji dla klas użytkowników")
-            plt.savefig(os.path.join(OUTPUT_DIR, 'association_graph_persona.png'), bbox_inches='tight')
-            plt.close()
-        else:
-            pass
-
-    except Exception as e:
-        print(e)
-        import traceback
-        traceback.print_exc()
-
-def xgbTree(source_path, target_col):
-    print(f"\nXGBoost dla {target_col}")
-    input_file = os.path.join(source_path, 'merged_data.csv')
-    try:
-        df = pd.read_csv(input_file)
-        
-        if 'userPersona' in df.columns:
-            df = pd.concat([df, pd.get_dummies(df['userPersona'], prefix='usr')], axis=1)
-
-        df_numeric = df.select_dtypes(include=[np.number])
-
-        target = target_col
-        if target not in df_numeric.columns:
-            candidates = [c for c in df_numeric.columns if target_col in c]
-            if candidates:
-                target = candidates[0]
-            else:
-                return
-
-        df_numeric = df_numeric.dropna(subset=[target])
-        df_numeric = df_numeric.fillna(method='ffill').fillna(0)
-
-        if len(df_numeric) < 50: return
-
-        X = df_numeric.drop(columns=[target])
-        y = df_numeric[target]
-        X = X.loc[:, X.var() > 0]
-
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        
-        model = xgb.XGBRegressor(objective='reg:squarederror', random_state=42)
-        model.fit(X_train, y_train)
-        
-        y_pred = model.predict(X_test)
-        mse = mean_squared_error(y_test, y_pred)
-        r2 = r2_score(y_test, y_pred)
-        
-        report = f"Target: {target}\nMSE: {mse}\nR2: {r2}\n\nFeature Importance:\n"
-        importances = model.feature_importances_
-        indices = np.argsort(importances)[::-1]
-        for i in range(min(15, X.shape[1])):
-            report += f"{X.columns[indices[i]]}: {importances[indices[i]]:.4f}\n"
-            
-        save_text_report(f'xgb_results_{target}.txt', report)
-        
-        plt.figure(figsize=(10, 8))
-        xgb.plot_importance(model, max_num_features=20, title=f'Feature Importance ({target})')
-        plt.savefig(os.path.join(OUTPUT_DIR, f'xgb_importance_{target}.png'), bbox_inches='tight')
-        plt.close()
-        print(f"Zapisano: xgb_importance_{target}.png")
-
-    except Exception as e:
-        print(e)
-
 def main():
     global OUTPUT_DIR
     parser = argparse.ArgumentParser()
@@ -362,12 +209,7 @@ def main():
     
     if mergeData(args.dir):
         focusedPersonaCorrelation(args.dir)
-        
         personaAnalysis(args.dir)
-        association(args.dir)
-        
-        xgbTree(args.dir, 'databaseTime')
-        xgbTree(args.dir, 'cpuUsage')
     else:
         pass
 
