@@ -47,9 +47,6 @@ python .\mainAnalysis.py --dir ".\$outputDir"
 Write-Host "`nAnaliza pojedynczego scenariusza" -ForegroundColor Yellow
 python .\single_scenario_analysis.py --dir ".\$outputDir"
 
-Write-Host "`nAnaliza zablokowanych uzytkownikow" -ForegroundColor Yellow
-python .\analyze_blocked_users.py --dir ".\$outputDir"
-
 Write-Host "`nAnaliza Macierzy Pomyłek" -ForegroundColor Yellow
 python .\analyze_confusion_matrix.py --dir ".\$outputDir"
 

@@ -53,9 +53,6 @@ python3 ./mainAnalysis.py --dir "./$outputDir"
 echo "\n${yellow}Analiza pojedynczego scenariusza${nc}"
 python3 ./single_scenario_analysis.py --dir "./$outputDir"
 
-echo "\n${yellow}Analiza zablokowanych użytkowników${nc}"
-python3 ./analyze_blocked_users.py --dir "./$outputDir"
-
 echo "\n${yellow}Analiza Macierzy Pomyłek${nc}"
 python3 ./analyze_confusion_matrix.py --dir "./$outputDir"
 
