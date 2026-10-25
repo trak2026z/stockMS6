@@ -1,3 +1,0 @@
-Total Blocked Requests: 74126
- - Bots: 24448
- - Humans: 49678

@@ -11,12 +11,12 @@ from db_logging import log_cpu_mem, log_bot_stats
 load_dotenv()
 
 model = xgb.Booster()
-model.load_model("bot_xgboost_model_M10U200-45-45-10.json")
+model.load_model("bot_xgboost_model_H1U200-45-45-10.json")
 
-encoders_data = joblib.load("bot_xgboost_encoders_M10U200-45-45-10.pkl")
+encoders_data = joblib.load("bot_xgboost_encoders_H1U200-45-45-10.pkl")
 url_counts = encoders_data['url_counts']
 
-BOT_THRESHOLD = 0.47
+BOT_THRESHOLD = 0.4628
 
 stats_lock = asyncio.Lock()
 seen_users = set()

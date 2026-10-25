@@ -9,3 +9,5 @@ venv/
 *.sql
 *.ipynb
 *.pyc
+/gielda/node_modules
+*.csv
