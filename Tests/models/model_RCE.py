@@ -64,8 +64,6 @@ def train_gaussian(input_file, model_output):
     print(classification_report(y_test, y_pred, target_names=['Human', 'Bot']))
 
     save_path = model_output
-    if os.path.exists('weights'):
-        save_path = os.path.join('weights', model_output)
     
     save_data = {
         'model': clf,
