@@ -10,35 +10,20 @@ import joblib
 import argparse
 from utils import prepare_data, time_split
 
-def train_model(input_file, model_output, encoder_output, plot_output):
+def train_model(input_file, model_output, plot_output):
     if not os.path.exists(input_file):
         print(f"Błąd: Nie znaleziono pliku {input_file}")
         return
 
     df = prepare_data(pd.read_csv(input_file, on_bad_lines='skip', low_memory=False))
+    df[["endpointUrl", "apiMethod"]] = df[["endpointUrl", "apiMethod"]].astype("category")
     
     print("Rozkład klas (0=Człowiek, 1=Bot):")
     print(df['is_bot'].value_counts())
 
     X_train, X_test, y_train, y_test = time_split(df, test_size=0.2)
-    
-    X_train = X_train.copy()
-    X_test = X_test.copy()
 
-    url_counts = X_train['endpointUrl'].value_counts()
-    
-    def map_frequency(data_series, counts):
-        return data_series.map(counts).fillna(0)
-
-    X_train['endpointUrl'] = map_frequency(X_train['endpointUrl'], url_counts)
-    X_test['endpointUrl'] = map_frequency(X_test['endpointUrl'], url_counts)
-    
-    print("Zastosowano Frequency Encoding dla endpointUrl.")
-    
-    X_train_final = X_train.astype(float)
-    X_test_final = X_test.astype(float)
-
-    print(f"Liczba cech po transformacji: {X_train_final.shape[1]}")
+    print(f"Liczba cech po transformacji: {X_train.shape[1]}")
 
     model = xgb.XGBClassifier(
         objective='binary:logistic',
@@ -47,12 +32,14 @@ def train_model(input_file, model_output, encoder_output, plot_output):
         learning_rate=0.1,
         eval_metric='logloss',
         use_label_encoder=False,
+        enable_categorical=True,
+        random_state=0,
         n_jobs=-1
     )
     
-    model.fit(X_train_final, y_train)
+    model.fit(X_train, y_train)
 
-    y_proba = model.predict_proba(X_test_final)[:, 1]
+    y_proba = model.predict_proba(X_test)[:, 1]
 
     precision, recall, thresholds = precision_recall_curve(y_test, y_proba)
 
@@ -62,11 +49,6 @@ def train_model(input_file, model_output, encoder_output, plot_output):
 
     print(f"Najlepszy próg: {best_threshold:.4f}")
     print(f"Maksymalny F1-Score: {f1_scores[best_idx]:.4f}")
-
-    save_data = {
-        'url_counts': url_counts,
-        'best_threshold': best_threshold 
-    }
 
     plt.figure(figsize=(10, 6))
     plt.plot(thresholds, f1_scores[:-1], label='F1 Score')
@@ -81,7 +63,7 @@ def train_model(input_file, model_output, encoder_output, plot_output):
     print("Zapisano wykres doboru progu: analysisResults/threshold_tuning.png")
 
     print("\nWyniki na zbiorze TESTOWYM:")
-    y_pred = model.predict(X_test_final)
+    y_pred = model.predict(X_test)
     
     acc = accuracy_score(y_test, y_pred)
     print(f"Dokładność (Accuracy): {acc:.4f}")
@@ -98,15 +80,10 @@ def train_model(input_file, model_output, encoder_output, plot_output):
     plt.savefig(plot_output)
     print(f"Zapisano wykres ważności cech: {plot_output}")
 
-    save_data = {
-        'url_counts': url_counts,
-    }
     
     model.save_model(model_output)
-    joblib.dump(save_data, encoder_output)
     
     print(f"\nModel zapisany jako: {model_output}")
-    print(f"URL counts zapisane jako: {encoder_output}")
     
     bot_avg = df[df['is_bot'] == 1]['apiTime'].mean()
     human_avg = df[df['is_bot'] == 0]['apiTime'].mean()
@@ -121,9 +98,8 @@ if __name__ == "__main__":
     input_file_path = f'../{args.dir}/merged_data.csv'
     
     model_output_path = f'bot_xgboost_model_{args.dir}.json'
-    encoder_output_path = f'bot_xgboost_encoders_{args.dir}.pkl'
     plot_output_path = f'analysisResults/xgboost_importance_{args.dir}.png'
     
     print(f"Uruchamianie dla katalogu: {args.dir}")
     
-    train_model(input_file_path, model_output_path, encoder_output_path, plot_output_path)
+    train_model(input_file_path, model_output_path, plot_output_path)

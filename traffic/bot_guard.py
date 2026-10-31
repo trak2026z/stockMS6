@@ -1,6 +1,6 @@
 from aiohttp import web
 import xgboost as xgb
-import numpy as np
+from pandas import DataFrame
 import joblib
 import asyncio
 from dotenv import load_dotenv
@@ -13,10 +13,7 @@ load_dotenv()
 model = xgb.Booster()
 model.load_model("bot_xgboost_model_H1U200-45-45-10.json")
 
-encoders_data = joblib.load("bot_xgboost_encoders_H1U200-45-45-10.pkl")
-url_counts = encoders_data['url_counts']
-
-BOT_THRESHOLD = 0.4628
+BOT_THRESHOLD = 0.4963
 
 stats_lock = asyncio.Lock()
 seen_users = set()
@@ -35,11 +32,6 @@ async def predict(request):
     raw_method = data.get('apiMethod', '').upper()
 
     method_enc = 1 if raw_method == "POST" else 0
-
-    if raw_url in url_counts.index:
-        url_enc = url_counts[raw_url]
-    else:
-        url_enc = 0
 
     incoming_cpu = data.get('cpuUsage', 0)
     incoming_mem = data.get('memoryUsage', 0)
@@ -69,12 +61,11 @@ async def predict(request):
         cpu_trade,
         mem_trade,
         mem_market,
-        url_enc,
+        raw_url,
         method_enc
     ]
 
-    features_matrix = np.array([final_features])
-
+    
     full_feature_names = [
         'apiTime', 'applicationTime', 'databaseTime', 
         'cpuUsage_market', 'cpuUsage_trade', 
@@ -82,7 +73,11 @@ async def predict(request):
         'endpointUrl', 'apiMethod'
     ]
 
-    dmatrix = xgb.DMatrix(features_matrix, feature_names=full_feature_names)
+    features_matrix = DataFrame(dict(zip(full_feature_names, final_features)), index=[0])
+    features_matrix[["endpointUrl", "apiMethod"]] = features_matrix[["endpointUrl", "apiMethod"]].astype("category")
+
+
+    dmatrix = xgb.DMatrix(features_matrix, enable_categorical=True)
     prediction = model.predict(dmatrix)[0]
     
     is_bot = prediction > BOT_THRESHOLD
