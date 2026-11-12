@@ -3,8 +3,7 @@ SQLAlchemy
 psycopg2-binary
 python-dotenv
 psutil
-xgboost
 numpy
 pandas
-joblib
 scikit-learn
+river

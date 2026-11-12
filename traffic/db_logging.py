@@ -10,7 +10,7 @@ DB_USER = os.getenv("DB_USERNAME", "postgres")
 DB_PASS = os.getenv("DB_PASSWORD", "Password")
 DB_NAME = os.getenv("DB_NAME", "gielda")
 
-DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DATABASE_URL = f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 try:
     engine = create_engine(DATABASE_URL)

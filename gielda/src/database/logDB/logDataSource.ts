@@ -8,10 +8,12 @@ import { TradeLog } from "./entities/TradeLogEntities";
 import { TrafficCpu } from "./entities/TrafficCpuEntities";
 import { TrafficLog } from "./entities/TrafficLogEntities";
 import { BlockedUserLog } from "./entities/BlockedUserLogEntities";
+import { BanEventLog } from "./entities/BanEventLogEntities";
+import { RequestAttemptLog } from "./entities/RequestAttemptLogEntities";
 
 dotenv.config({ path: `${process.cwd()}/./.env` });
 
-const entities = [MarketCpu, MarketLog, TradeCpu, TradeLog, TrafficCpu, TrafficLog, BlockedUserLog];
+const entities = [MarketCpu, MarketLog, TradeCpu, TradeLog, TrafficCpu, TrafficLog, BlockedUserLog, BanEventLog, RequestAttemptLog];
 
 export const LogAppDataSource = new DataSource({
   type: "postgres",
